@@ -1,0 +1,21 @@
+# --- Media & Large Files ---
+# Prevent the test video from being uploaded
+your_video.mp4
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# --- Python & Jupyter ---
+# Python bytecode (garbage files)
+__pycache__/
+*.py[cod]
+
+# Jupyter Notebook checkpoints (created by Colab/Jupyter)
+.ipynb_checkpoints/
+
+# --- OS Specific ---
+# Mac
+.DS_Store
+# Windows
+Thumbs.db
