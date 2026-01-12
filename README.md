@@ -64,7 +64,7 @@ In the FPGA implementation (currently in development), the "System Overhead" eff
 
 ## License
 
-Copyright (c) 2026, [Your Name / Company Name]  
+Copyright (c) 2026, [Matthew Rockwell/ Rockwell Industries LLC]  
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
