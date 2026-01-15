@@ -1,0 +1,48 @@
+// ==========================================
+//  Sipeed Tang Nano 9K Constraints File
+// ==========================================
+
+// --- 1. System Clock & Reset ---
+// The onboard 27MHz Crystal Oscillator
+IO_LOC "clk" 52;
+IO_PORT "clk" PULL_MODE=UP;
+
+// The S1 Button (Bottom button)
+// Pressed = 0, Released = 1
+IO_LOC "rst_n" 3;
+IO_PORT "rst_n" PULL_MODE=UP;
+
+// --- 2. UART (Over USB-C) ---
+// These pins connect internally to the BL702 chip,
+// allowing you to send data via the USB cable.
+// No extra wires needed!
+
+// FPGA TX -> Sending to PC (Pin 17)
+IO_LOC "uart_tx" 17;
+IO_PORT "uart_tx" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+
+// FPGA RX <- Receiving from PC (Pin 18)
+IO_LOC "uart_rx" 18;
+IO_PORT "uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+
+// --- 3. Debug LEDs (Visual Feedback) ---
+// Tang Nano 9K has 6 LEDs. They are "Active Low" (0=ON, 1=OFF).
+// We will map your 'rx_byte' bits to them so you can see data arriving.
+
+IO_LOC "rx_byte[0]" 10;
+IO_PORT "rx_byte[0]" PULL_MODE=UP DRIVE=8;
+
+IO_LOC "rx_byte[1]" 11;
+IO_PORT "rx_byte[1]" PULL_MODE=UP DRIVE=8;
+
+IO_LOC "rx_byte[2]" 13;
+IO_PORT "rx_byte[2]" PULL_MODE=UP DRIVE=8;
+
+IO_LOC "rx_byte[3]" 14;
+IO_PORT "rx_byte[3]" PULL_MODE=UP DRIVE=8;
+
+IO_LOC "rx_byte[4]" 15;
+IO_PORT "rx_byte[4]" PULL_MODE=UP DRIVE=8;
+
+IO_LOC "rx_byte[5]" 16;
+IO_PORT "rx_byte[5]" PULL_MODE=UP DRIVE=8;
