@@ -2,11 +2,6 @@
 ## Hardware-Native Transient State Computation
 
 
-<div align="center">
-<video src="https://github.com/user-attachments/assets/06de6427-d917-4722-9129-266b6e87520f" width="600" controls></video>
-</div>
-
-
 > **IP & PATENT NOTICE**
 
 This repository contains software benchmarks, hardware description language (HDL) implementations, and validation artifacts for the **ATOMiK Architecture**.
@@ -52,3 +47,7 @@ ATOMiK/
 ├── docs/
 │   └── uart_simulation.png     # Simulation output (UART / core timing)
 └── README.md
+
+<div align="center">
+<video src="https://github.com/user-attachments/assets/06de6427-d917-4722-9129-266b6e87520f" width="600" controls></video>
+</div>
