@@ -1,6 +1,10 @@
 # ATOMiK Architecture  
 ## Hardware-Native Transient State Computation
 
+
+https://github.com/user-attachments/assets/4c54deab-3472-4218-b5b7-fff31d8cc0e1
+
+
 > **IP & PATENT NOTICE**
 
 This repository contains software benchmarks, hardware description language (HDL) implementations, and validation artifacts for the **ATOMiK Architecture**.
