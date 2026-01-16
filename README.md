@@ -2,7 +2,9 @@
 ## Hardware-Native Transient State Computation
 
 
-https://github.com/user-attachments/assets/4c54deab-3472-4218-b5b7-fff31d8cc0e1
+<div align="center">
+<video src="https://github.com/user-attachments/assets/06de6427-d917-4722-9129-266b6e87520f" width="600" controls></video>video>
+</div>div>
 
 
 > **IP & PATENT NOTICE**
