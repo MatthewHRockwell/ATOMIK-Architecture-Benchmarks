@@ -36,7 +36,9 @@ The Python components exist solely to validate correctness, compression behavior
 <div align="center">
 <video src="https://github.com/user-attachments/assets/06de6427-d917-4722-9129-266b6e87520f" width="600" controls></video>
 </div>
+
 ---
+
 ## Repository Structure
 
 ```text
