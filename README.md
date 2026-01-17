@@ -14,6 +14,12 @@
 
 ---
 
+## Architectural Abstract
+
+**ATOMiK** is a hardware-native compute architecture that replaces persistent architectural state with **transient state evolution**. Computation is expressed as bounded, deterministic delta propagation across register-local state, eliminating bulk memory traffic, cache coherency overhead, and speculative execution. The result is a cycle-bounded execution model capable of nanosecond-scale decision latency, well-suited for FPGA and ASIC implementation where determinism, security, and energy efficiency are first-order constraints.
+
+---
+
 ## Overview
 
 **ATOMiK** is a stateless, hardware‑native compute architecture that reframes computation as **transient state evolution** rather than persistent state storage.
@@ -124,18 +130,164 @@ It is **not** intended to represent performance parity with the FPGA implementat
 
 The included demo video shows a complete simulation loop:
 
+<div align="center">
+<video src="https://github.com/user-attachments/assets/06de6427-d917-4722-9129-266b6e87520f" width="600" controls></video>
+</div>
+
 * Deterministic stimulus injection
 * Transient state evaluation inside the ATOMiK core
-* UART‑serialized output
+* UART-serialized output
 * Waveform inspection in GTKWave
 
 This setup is intentionally minimal to highlight architectural behavior rather than system integration complexity.
 
 ---
 
-<div align="center">
-<video src="https://github.com/user-attachments/assets/06de6427-d917-4722-9129-266b6e87520f" width="600" controls></video>
-</div>
+## Latency Envelope (Representative)
+
+The following table summarizes **cycle-level latency behavior** observed under simulation. Values are representative and depend on clock frequency and target device; no internal mechanisms are disclosed.
+
+|                    Stage | Description                 |     Cycles     |
+| -----------------------: | --------------------------- | :------------: |
+|              Input Latch | Delta capture               |        1       |
+|          Core Evaluation | Transient state propagation | O(1–N) bounded |
+|            Result Commit | Output stabilization        |        1       |
+| Serialization (Optional) | UART visibility only        |    Variable    |
+
+Key properties:
+
+* Latency is **bounded and deterministic**
+* No dependency on prior execution history
+* No cache warm-up, page faults, or speculative rollback
+
+---
+
+## Audience Alignment
+
+This README is intentionally written to serve **three distinct but overlapping audiences**. Each section is structured so that readers can extract value without requiring full-domain overlap.
+
+### FPGA & Hardware Engineers
+
+* Clear module boundaries and signal-level intent
+* Cycle-bounded execution semantics
+* Simulation-first validation with real FPGA constraints
+* No hidden software abstraction layers
+
+If you are evaluating feasibility, timing behavior, or architectural novelty at the RTL level, the **Hardware Implementation** and **Testbench** sections are the authoritative reference.
+
+### Researchers & Technical Reviewers
+
+* Explicit execution model definition
+* Deterministic, stateless computation semantics
+* Separation of validation tooling from reference execution
+* Architecture-first framing independent of vendor tooling
+
+If you are reviewing ATOMiK as a **computational model** or architectural primitive, focus on the **Execution Model Summary** and how transient state replaces persistent architectural state.
+
+### Investors & Strategic Partners
+
+* Clear differentiation from CPUs, GPUs, and accelerators
+* Bounded latency and deterministic behavior
+* Hardware-native scalability path
+* Strong IP and licensing posture
+
+If you are evaluating ATOMiK from a commercialization or infrastructure perspective, the **Overview**, **Simulation & Demo**, and **Licensing** sections provide the relevant framing.
+
+---
+
+## What ATOMiK Is — and Is Not
+
+**ATOMiK is:**
+
+* A hardware-native transient state compute architecture
+* A deterministic, cycle-bounded execution model
+* A platform for ultra-low-latency decision logic
+* A foundational primitive intended for integration into larger systems
+
+**ATOMiK is not:**
+
+* A general-purpose CPU or soft-core processor
+* A GPU, NPU, or data-parallel accelerator
+* A firmware-driven state machine
+* A software-emulated architecture
+
+ATOMiK occupies a distinct point in the compute design space: **where computation is expressed as ephemeral state evolution rather than stored program execution**.
+
+---
+
+## System Integration Model
+
+ATOMiK is designed to function as a **computational primitive**, not a monolithic processor. Typical integration patterns include:
+
+* Inline decision engines on high-speed data paths
+* Deterministic control logic in safety- or latency-critical systems
+* Pre-filter or arbitration layers ahead of general-purpose compute
+* Hardware-native inference, compression, or rule-evaluation blocks
+
+ATOMiK intentionally omits:
+
+* Instruction fetch/decode pipelines
+* Virtual memory or address translation
+* Cache hierarchies and coherency protocols
+
+This makes it complementary to existing compute systems rather than competitive with them.
+
+---
+
+## Platform Vision
+
+ATOMiK is not positioned as a single-purpose accelerator or fixed-function block. It is intended to evolve into a **foundational compute platform** whose execution semantics can be embedded across software and hardware boundaries.
+
+The current FPGA implementation represents the **root system**: a validated, deterministic execution core. From this base, higher-order abstractions can be layered without compromising the underlying transient-state guarantees.
+
+Long-term, ATOMiK is designed to support:
+
+* **Pipeline SDKs** for direct integration into existing dataflows
+* **System-level orchestration layers** that expose transient-state execution as a first-class primitive
+* **Distributed coordination models** built on deterministic state evolution
+* **AI, control, and cryptographic workloads** that benefit from bounded latency and stateless semantics
+
+This evolution is deliberate: hardware first, abstraction second.
+
+---
+
+## Roadmap
+
+### Near-Term (Current Focus)
+
+* FPGA validation and timing closure
+* Expanded benchmark coverage
+* Debugging and formal verification artifacts
+* Clean, minimal interfaces suitable for SDK binding
+
+### Mid-Term
+
+* Language-agnostic SDKs for pipeline integration
+* Hardware-software co-simulation tooling
+* Multi-instance composition models
+* Early ASIC feasibility exploration
+
+### Long-Term Platform Trajectory
+
+* **Operating system primitives** built around transient execution
+* **Deterministic distributed systems** and blockchain-like coordination layers
+* **AI execution substrates** where inference is expressed as delta propagation
+* **Composable infrastructure** rather than monolithic products
+
+ATOMiK is intended to grow **vertically** (depth of capability) rather than horizontally (feature sprawl), preserving architectural coherence as it scales.
+
+---
+
+## Architectural Discipline
+
+While the platform vision is expansive, ATOMiK enforces strict architectural discipline:
+
+* Hardware semantics remain canonical
+* Abstractions must preserve determinism
+* No retrofitting of legacy execution models
+* No dilution into general-purpose compute paradigms
+
+This discipline is what allows ATOMiK to scale from a single FPGA core to a platform-level foundation without collapsing under complexity.
 
 ---
 
@@ -144,16 +296,16 @@ This setup is intentionally minimal to highlight architectural behavior rather t
 This repository is intended for:
 
 * Architectural evaluation and peer review
-* FPGA‑level benchmarking and latency measurement
-* Validation of transient‑state compute models
-* Investor, partner, and technical due‑diligence review
+* FPGA-level benchmarking and latency measurement
+* Validation of transient-state compute models
+* Investor, partner, and technical due-diligence review
 
-It is **not** intended as a drop‑in accelerator, soft‑core CPU, or general‑purpose compute platform.
+It is **not** intended as a drop-in accelerator, soft-core CPU, or general-purpose compute platform.
 
 ---
 
 ## Licensing & Contact
 
-Source files are provided under the BSD 3‑Clause License **for evaluation only**, subject to the patent notice above.
+Source files are provided under the BSD 3-Clause License **for evaluation only**, subject to the patent notice above.
 
 For licensing inquiries, commercial integration, or architectural collaboration, please contact the repository owner.
